@@ -9,7 +9,7 @@
         Access point to the SACS system. It controls all the program flow.
 """
 
-import sort_algorithms as sa
+import sorting_algorithms as sa
 
 
 def main():
