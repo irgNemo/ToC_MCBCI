@@ -10,13 +10,16 @@
 """
 
 import sorting_algorithms as sa
+import input_output as io
 
 
 def main():
-    a = [89, 45, 68, 90, 29, 34, 17]
-    print(a)
-    sa.quick_sort(a)
-    print(a)
+    unsorted_list = [89, 45, 68, 90, 29, 34, 17, 30]
+    quick_sorted_list = sa.quick_sort(unsorted_list)
+    #bubble_sorted_list = sa.bubble_sort(unsorted_list)
+    results = [("Quick sort", quick_sorted_list)]
+    io.formated_output(results)
+
 
 if __name__ == "__main__":
     main()
