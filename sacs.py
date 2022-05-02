@@ -24,7 +24,13 @@ def main():
     sorting_algorithms = config_dict["sorting_algorithms"].split(",")
     sorting_algorithms = [sorting_algorithm.strip() for sorting_algorithm in sorting_algorithms]
     unsorted_lists = config_dict["unsorted_lists"].split("|")
-    unsorted_lists = [unsorted_list.strip("[] ").split(",") for unsorted_list in unsorted_lists]
+
+    #
+    int_unsorted_list = []
+    for unsorted_list in unsorted_lists: # Cast string elements to integer to perform a correct sorting
+        unsorted_list = unsorted_list.strip("[] ").split(",")
+        int_unsorted_list.append([int(element) for element in unsorted_list])
+    unsorted_lists = int_unsorted_list
 
     for sorting_algorithm in sorting_algorithms:
         for unsorted_list in unsorted_lists:
