@@ -44,7 +44,7 @@ def load_config_file(file_path: str) -> dict:
     return config_dict
 
 
-def formatted_output(results: dict):
+def formatted_output(results: list):
     """Write a formated table with the results of the comparison
         
         The table contains a header with the information. Every row represents the evaluation of one sorting algorithm on a list of elements
