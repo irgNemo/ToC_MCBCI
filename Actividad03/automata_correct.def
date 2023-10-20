@@ -1,0 +1,18 @@
+# Un automata finito determinista se define por la tupla (Sigma, Q, f, q0, F)
+# sigma: Alfabeto de entrada
+# Q: Conjunto finito y no vacio de estados del automata
+# f: función de transición
+# q0: Estado inicial
+# F: Conjunto de estados finales de aceptación (no vacio y subconjunto de Q)
+# test: Conjunto de cadenas de prueba que serán evaluadas por el sistema
+
+
+Q={q1,q2,q3}
+f={(q1 0)->q1,(q1 1)->q2,(q2 0)->q1,(q2 1)->q2}
+q0=q1
+F={q2}
+sigma={0,1}
+
+# Cadenas de prueba
+test={1,0,11,101,01010,000,111111, 10}
+expected={accepted, rejected, accepted, rejected, rejected, rejected}
