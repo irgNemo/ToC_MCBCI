@@ -8,8 +8,27 @@
 
 import argparse
 
+ALPHABET_RE = "sigma\s=\s{.,?}"
+FINAL_STATES_RE = ""
+TRANSITION_FUNCTION_RE = ""
+INITIAL_STATE_RE = ""
+STATES_RE = ""
+
 def load_config_file(filename):
-    print(filename)
+    """This function load the config file where the deterministic finite
+    automata is condigured
+
+    Parameters
+    ----------
+        filename: filename or path to the config file
+
+    Return
+    ------
+        automata_definition: a dictionary with the deterministic finite automata correctly validated
+    """
+    
+    file_obj = open(filename)
+    content_file = file_obj.read()
 
 
 
