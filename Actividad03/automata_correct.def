@@ -6,7 +6,6 @@
 # F: Conjunto de estados finales de aceptación (no vacio y subconjunto de Q)
 # test: Conjunto de cadenas de prueba que serán evaluadas por el sistema
 
-
 Q={q1,q2,q3}
 f={(q1 0)->q1,(q1 1)->q2,(q2 0)->q1,(q2 1)->q2}
 q0=q1
