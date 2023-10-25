@@ -14,8 +14,10 @@ FINAL_STATES_RE = "(F)\s*=\s*({[a-z][0-9]+(,[a-z][0-9]+)*})"
 TRANSITION_FUNCTION_RE = "(f)\s*=\s*({\([a-z][0-9]+ [a-z0-9]\)->[a-z][0-9]+(,\([a-z][0-9]+ [a-z0-9]\)->[a-z][0-9]+)*})"
 INITIAL_STATE_RE = "(q0)\s*=\s*([a-z][0-9])"
 STATES_RE = "(Q)\s*=\s*({[a-z][0-9](,[a-z][0-9])*})"
-DFA_REGEXPS = [ALPHABET_RE,STATES_RE,INITIAL_STATE_RE,FINAL_STATES_RE,TRANSITION_FUNCTION_RE]
-        
+TEST_RE = "(test)\s*=\s*(\[.+(,.+)*\])"
+EXPECTED_RE = "(expected)\s*=\s*(\[.+(,.+)*\])"
+DFA_REGEXPS = [ALPHABET_RE,STATES_RE,INITIAL_STATE_RE,FINAL_STATES_RE,TRANSITION_FUNCTION_RE, TEST_RE, EXPECTED_RE]
+
 
 def parse_command_line():
     """Parse from command line the arguments passed by the user
@@ -54,15 +56,31 @@ def load_config_file(filename):
         tuple_value = match.groups()[1]
         
         if is_set(tuple_value):
-            tuple_value = set(tuple_value[1:-1].split(","))
-        
+            sub_string = tuple_value[1:-1]
+            sub_string = sub_string.split(",")
+            tuple_value = set(sub_string)
+        elif is_list(tuple_value):
+            sub_string = tuple_value[1:-1]
+            tuple_value = sub_string.split(",")
+
         automata_definition[tuple_name] = tuple_value
     
     return automata_definition
 
+def evaluate_string(transition_matrix, test_list, init_state, final_state_set):
+    validation_results = []
+    for string in test_list:
+        current_state = init_state
+        for character in string:
+            next_state = transition_matrix[current_state][character]
+            current_state = next_state
+        validation_results += ["accepted"] if current_state in final_state_set else ["rejected"]
+    
+    return validation_results
+            
 
 def is_set(value):
-    """Evaluate if the string correspond to a set definition
+    """Evaluate if value correspond to a set definition
         
         Parameters
         ----------
@@ -73,6 +91,20 @@ def is_set(value):
             True if value corresponds to a set definition
     """
     return True if re.match("{.*}", value) else False
+
+def is_list(value):
+    """Evaluate if value correspond to a list definition
+
+    Parameters
+    ----------
+        value: a string to be evaluated
+
+    Return
+    ------
+        True if value corresponds to a list definition
+    """
+
+    return True if re.match("\[.*\]", value) else False
 
 
 def validate_automata_definition(automata_definition):
@@ -119,7 +151,7 @@ def build_transition_matrix(transition_sets):
         Return:
         -------
             transition_matrix: a dictionary corresponding to the transition matrix. 
-                Accesion example:
+                Accession example:
                     transition_matrix[actual_state][actual_character] -> new state 
     """
     transition_matrix = {}
@@ -134,3 +166,11 @@ def build_transition_matrix(transition_sets):
         transition_matrix[antecedent_state][antecedent_alphabet] = consequent
     
     return transition_matrix
+
+def print_result_table(automata_results, expected_results):
+    results_tuple = zip(automata_results, expected_results)
+    header = "Evaluated\tExpected\tMatch?"
+    
+    print(header)
+    for evaluated, expected in results_tuple:
+        print("{}\t{}\t{}".format(evaluated, expected, evaluated == expected))
