@@ -127,6 +127,7 @@ def validate_automata_definition(automata_definition):
     """
     assert automata_definition["q0"] in automata_definition["Q"], "q0 is not in Q!!!"
     assert automata_definition["F"].issubset(automata_definition["Q"]), "F is not in Q!!!"
+    assert len(automata_definition["test"]) == len(automata_definition["expected"]), "The lists test and expected are from differente length"
 
     transition_function_set = automata_definition["f"]
     for item in transition_function_set:
@@ -137,6 +138,10 @@ def validate_automata_definition(automata_definition):
         assert antecedent_state in automata_definition["Q"], "{} is not in {}".format(antecedent_state, automata_definition["Q"])
         assert antecedent_alphabet in automata_definition["sigma"], "{} is not in {}".format(antecedent_alphabet, automata_definition["sigma"])
         assert consequent in automata_definition["Q"], "{} is not in {}".format(consequent, automata_definition["Q"])
+    
+    for string_test in automata_definition["test"]:
+        for character in string_test:
+            assert character in automata_definition["sigma"], "The character '{}' of the string test '{}' contains element(s) not in sigma set {}".format(character, string_test, automata_definition["sigma"])
     
     return True
 
@@ -169,8 +174,8 @@ def build_transition_matrix(transition_sets):
 
 def print_result_table(automata_results, expected_results):
     results_tuple = zip(automata_results, expected_results)
-    header = "Evaluated\tExpected\tMatch?"
+    header = "|{0:^15}|{1:^15}|{2:^15}|"
     
-    print(header)
+    print(header.format("Evaluated","Expected","Match?"))
     for evaluated, expected in results_tuple:
-        print("{}\t{}\t{}".format(evaluated, expected, evaluated == expected))
+        print("|{0:^15}|{1:^15}|{2:^15}|".format(evaluated, expected, evaluated == expected))
