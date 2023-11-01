@@ -1,0 +1,22 @@
+# Una maquina de turing se define por la 7 tupla (Q, Sigma, Gamma(Γ), q0, b, F, f)
+# Q: Conjunto finito y no vacio de estados de la unidad de control
+# Sigma: Conjunto finito de símbolos de entrada o alfabeto de la cadena de entrada
+# Gamma(Γ): Conjunto finito de simbolos de cinta o alfabeto de cinta
+# q0: Estado inicial
+# b: espacio en blanco
+# F: Conjunto de estados finales de aceptación (no vacio y subconjunto de Q)
+# f: función de transición
+# test: cadenas para validacion
+
+
+Q={q0,q1,q2,q3,q4}
+sigma={0,1}
+gamma={0,1,X,Y,b}
+q0=q0
+b=b
+F={q4}
+f={(q0 0)->(q1 X R),(q0 Y)->(q3 Y R),(q1 0)->(q1 0 R),(q1 1)->(q2 Y L),(q1 Y)->(q1 Y R),(q2 0)->(q2 0 L),(q2 X)->(q0 X R),(q2 Y)->(q2 Y L),(q3 Y)->(q3 Y R),(q3 b)->(q4 b R)}
+
+# Cadenas de prueba
+test=[000111,0011,00001111,0101010,00000001111111,01,0100110]
+expected=[accepted,accepted,accepted,rejected,accepted,accepted,rejected]
