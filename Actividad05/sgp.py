@@ -1,25 +1,26 @@
 """
 Name 
-    Pinacotecas
+    SGP: Sistema Gestor de Pinacotecas
 
 Description
-    The pinacotecas system allow the managment of mexican pinacotecas
+    El Sistema Gestor de Pinacotecas ayuda a gestionar la administración de diferentes
+    pinacotecas. Principalmente la gestión de de cuadros, pintores, mecenas, clientes,
+    escuelas, maestros y ventas.
 """
 
 import Pinacoteca
 import Persona
 from Pintor import Pintor
 
-WELLCOME_HEADER = "PINACOTECAS MANAGMENT PROGRAM"
-INSTRUCTION = "Please select any of the following optiones:"
+WELLCOME_HEADER = "Sistema Gestor de Pinacotecas"
+INSTRUCTION = "Por favor seleccione una de las siguientes opciones:"
 
 
 def main():
     print("{header:^100}".format(header=WELLCOME_HEADER))
     print("{instruction}".format(instruction=INSTRUCTION))
 
-    pinacoteca_obj = Pinacoteca.Pinacoteca()
-    pinacoteca_obj.nombre = "Mi pinoteca"
+    pinacoteca_obj = Pinacoteca.Pinacoteca("Galeria UDG", "Blvd. Gral. Marcelino García Barragán 1421", "Guadalajara", 12, 20)
     print(pinacoteca_obj)
     print(pinacoteca_obj._nombre)
 
