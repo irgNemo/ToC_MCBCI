@@ -16,5 +16,21 @@ class Persona:
         assert match, "El nombre debe de contener valores alfabeticos y espacio"
         self._nombre = nombre
 
+    @property
+    def pais(self):
+        return self._pais
+    
+    @pais.setter
+    def pais(self, pais):
+        self._pais = pais
+
+    @property
+    def fecha_nacimiento(self):
+        return self._fecha_nacimiento
+    
+    @fecha_nacimiento.setter
+    def fecha_nacimiento(self, fecha_naciemiento):
+        self._fecha_nacimiento = fecha_naciemiento
+
     def __str__(self) -> str:
-        return "Nombre: {}".format(self._nombre)
+        return "Nombre: {}".format(self.nombre)

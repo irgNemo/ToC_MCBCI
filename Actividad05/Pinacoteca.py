@@ -120,5 +120,8 @@ class Pinacoteca:
                 self.ventas.remove(venta)
                 return True
     
+    def metros_cuadrados(self) -> float:
+        return self.largo * self.ancho
+
     def __str__(self) -> str:
         return "Datos de la pinoteca \n Nombre: {} ".format(self._nombre)
