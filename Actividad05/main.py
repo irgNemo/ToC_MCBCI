@@ -15,11 +15,10 @@ WELLCOME_HEADER = "Sistema Gestor de Pinacotecas"
 INSTRUCTION = "Por favor seleccione una de las siguientes opciones:"
 
 def main():
-    print("{header:^100}".format(header=WELLCOME_HEADER))
-    print("{instruction}".format(instruction=INSTRUCTION))
+    print("\n{header:^100}\n".format(header=WELLCOME_HEADER))
 
     sgp = Sgp()
-    sgp.menu_general()
+    sgp.ejecutar()
 
    
 if __name__ == "__main__":
