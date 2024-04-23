@@ -1,10 +1,10 @@
 class Venta:
-    def __init__(self) -> None:
-        self._id_venta = None # El id_venta debe ser unico para cada venta
-        self._cuadro = None
-        self._precio = None
-        self._fecha = None
-        self._cliente = None
+    def __init__(self, id_venta = None, cuadro = None, precio = None, fecha = None, cliente = None) -> None:
+        self._id_venta = id_venta # El id_venta debe ser unico para cada venta
+        self._cuadro = cuadro
+        self._precio = precio
+        self._fecha = fecha
+        self._cliente = cliente
     
     @property
     def id_venta(self):

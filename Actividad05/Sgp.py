@@ -5,23 +5,17 @@ from Cliente import Cliente
 from Cuadro import Cuadro
 from Escuela import Escuela
 from Mecenas import Mecenas
-from Persona import Persona
 from Pinacoteca import Pinacoteca
 from Venta import Venta
 import re
 import pickle
+import os
 
 
 class Sgp:
+    BD_NOMBRE_ARCHIVO = "sgp_bd.txt"
 
     def __init__(self) -> None:
-        #self._pinacotecas = []
-        #self._clientes = []
-        #self._cuadros = []
-        #self._escuelas = []
-        #self._mecenas = []
-        #self._pintores = []
-        #self._ventas = []
         self._bd = {"pinacotecas":[], "clientes":[], "cuadros": [], "escuelas":[], "mecenas": [], "pintores": [], "ventas": []}
         
 
@@ -34,7 +28,9 @@ class Sgp:
         self._pinacotecas = pinacotecas
 
     def ejecutar(self):
-        self._leer_de_disco("sgp_bd.txt")
+
+        if os.path.exists(self.BD_NOMBRE_ARCHIVO):
+            self._leer_de_disco(self.BD_NOMBRE_ARCHIVO)
 
         while True:
             accion = self._menu_general()
@@ -59,7 +55,7 @@ class Sgp:
     
     def _alta(self, entidad):
         nombre_clase = entidad.name.title()
-        nueva_entidad = getattr(sys.modules[__name__], nombre_clase)
+        nueva_entidad = globals()[nombre_clase]
         dicc_atributos = vars(nueva_entidad)
         atributos = [atributo for atributo in dicc_atributos.keys() if not re.match("^__.+__$", atributo)]
         
@@ -86,7 +82,10 @@ class Sgp:
     def _consultas(self, entidad):
         entidad_str = entidad.name.lower() + "s"
         for obj in self._bd[entidad_str]:
-            print(str(obj))
+            dicc_atributos = vars(obj)
+            atributos = [atributo for atributo in dicc_atributos.keys() if not re.match("^__.+__$", atributo)]
+            for atributo in atributos:
+                print("{}: {}".format(atributo, getattr(obj, atributo)))
 
     def _menu_general(self):
         seleccion = None
